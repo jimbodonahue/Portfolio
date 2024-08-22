@@ -3,10 +3,13 @@
 ### Set up some globals
 output <- "~/R/BLS/output.json"
 
-https://github.com/mikeasilva/blsAPI
+# https://github.com/mikeasilva/blsAPI
 
 
 library(blsAPI,rjson)
+
+'registrationKey' = '702ca6c1c6d74d209de622450bcb198b'
+
 
 ### Let's make variables the easy(?) way
 ## in the loop, add smu first
@@ -24,12 +27,12 @@ result <- list()   # this list stores the results, 1 item per state
 varlist <- list()  # stores variable list, for unpacking
 # loop to combine above data into full strings
 for (a in length(states):1) {
-  stateK <- states[[1]]
+  statename <- states[[1]]
   for (b in length(zip):1) {
     for (c in length(industry):1) {
       for (d in length(datatype):1) {
-        seriesid [[length(seriesid) +1]] <- paste('SMU', stateK, zip[c(b)], industry[c(c)], datatype[c(d)], sep="")
-        varlist[[length(varlist) +1]] <- paste('var', seriesid[[length(seriesid)]],sep="")
+        seriesid [[length(seriesid) +1]] <- paste('SMU', statename, zip[c(b)], industry[c(c)], datatype[c(d)], sep="")
+        # varlist[[length(varlist) +1]] <- paste('var', seriesid[[length(seriesid)]],sep="")
       }
     }
   }
@@ -40,16 +43,33 @@ payload <- list(
   'seriesid'=seriesid,
   'startyear'=2015,  # limit 20 years
   'endyear'=2024,
-  'registrationKey' = '702ca6c1c6d74d209de622450bcb198b'
+  'registrationKey' = 'registrationKey'
 )
-response <- blsAPI(payload, 2, FALSE) # payload, API 2.0, true=dataframe, false=json
-json <- fromJSON(response)  # if json file
-result[[length(result) +1]] <- json
-}
+response <- blsAPI(payload, 2, TRUE) # payload, API 2.0, true=dataframe, false=json
+## If json, uncomment next two lines
+# json <- fromJSON(response)  # if json file
+# result[[length(result) +1]] <- json
+# }
 ### end gathering loop
 
-json_data <- ?????
 
 
+### If json, this is a function that
+apiDF <- function(data){
+  df <- data.frame(year=character(),
+                   period=character(),
+                   periodName=character(),
+                   value=character(),
+                   stringsAsFactors=FALSE)
+
+  i <- 0
+  for(d in data){
+    i <- i + 1
+    df[i,] <- unlist(d)
+  }
+  return(df)
+}
+
+
+# Reference:
 # https://github.com/cran/blsAPI
-
