@@ -8,7 +8,7 @@ output <- "~/R/BLS/output.json"
 
 library(blsAPI,rjson)
 
-'registrationKey' = '702ca6c1c6d74d209de622450bcb198b'
+'registrationKey' = 'key goes here'
 
 
 ### Let's make variables the easy(?) way
