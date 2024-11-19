@@ -1,3 +1,2 @@
-# bls_codes
-R script that generate BLS codes. Hopefully will soon be extended to pull data from API, put in R dataframe for analysis
-Currenly only state data for one survey, will extend soon
+# Portfolio
+Codes that are in progress, for fun, or generally might show a bit of my style and capabilities, both computational and mathematical. Feel free to contact with questions
